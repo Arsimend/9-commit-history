@@ -1,5 +1,6 @@
 package part01;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class CommitIds {
@@ -17,6 +18,7 @@ public class CommitIds {
      * There can be multiple commits in the commit log or there can be none. The
      * commits in the log are separated by a blank line. See the file
      * commit-log-example.txt for an example of a commit log.
+     * ------------------------
      *
      * For the contents of that example file, the method should return a collection
      * containing the following strings:
@@ -38,6 +40,24 @@ public class CommitIds {
          * Note also, that if the given commitLog is empty, you must return an empty
          * collection.
          */
-        return null;
+
+
+    Collection<String> ids = new ArrayList<>();
+
+    String[] rivit = commitLog.split("\n");
+
+    for (String rivi : rivit) {
+
+        rivi = rivi.trim();
+
+        if (rivi.startsWith("Commit ")) {
+
+            String[] osat = rivi.split("\\s+");
+
+            ids.add(osat[1]);
+        }
     }
+
+    return ids;
 }
+    }
