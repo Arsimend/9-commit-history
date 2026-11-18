@@ -11,12 +11,32 @@ public class Main {
         Path logFile = Path.of("pizza-commits.txt");
         String fileContents = Files.readString(logFile, StandardCharsets.UTF_8);
 
-        // TODO: implement the logic described in the readme file
+        String[] rivit = fileContents.split("\n");
+        String parent = "None";
+        boolean jatkuu = true;
 
-        // `fileContents` variable should contain the contents of the pizza log file
-        // as in the previous parts. You can check the contents by uncommenting the
-        // following line:
+        while (jatkuu) {
 
-        // System.out.println(fileContents);
+            jatkuu = false;
+
+            for (int i = 0; i < rivit.length; i++) {
+
+                String rivi = rivit[i].trim();
+
+                if (rivi.contains("(Parent: " + parent + ")")) {
+
+                    System.out.println(rivi);
+                    System.out.println(rivit[i + 1]);
+                    System.out.println(rivit[i + 2]);
+                    System.out.println();
+
+                    String[] osat = rivi.split(" ");
+                    parent = osat[1];
+
+                    jatkuu = true;
+                    break;
+                }
+            }
+        }
     }
 }
