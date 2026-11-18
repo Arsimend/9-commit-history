@@ -1,6 +1,9 @@
 package part02;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class Contributors {
@@ -22,10 +25,37 @@ public class Contributors {
      * @return a collection of contributor usernames from the commit log
      */
     public Collection<String> getContributors(String commitLog) {
+
         // Like in the previous exercise, you need to return an instance of some class
         // that implements the Collection interface. The choice is yours.
-        return null;
-    }
+       
+        Collection <String> contributors  = new  HashSet<>();
+
+        String [] rivit = commitLog.split("\\R");
+        for (String rivi : rivit) {
+            rivi = rivi.trim();
+
+            if (rivi.startsWith("Commit ")) {
+
+                String [] osat = rivi.split("\\s+");
+
+                if (osat.length >= 4 && osat[2].equals("by")) {
+                    contributors.add(osat[3]);
+
+                    
+                }
+
+
+                
+            }
+        }
+
+
+
+
+
+        return contributors;
+        }
 
     /**
      * This method groups the commit ids by contributor. The format of the input is
@@ -48,6 +78,33 @@ public class Contributors {
      * @return a map containing the commit ids grouped by contributor
      */
     public Map<String, Collection<String>> groupCommitIdsByContributors(String commitLog) {
-        return null;
+
+        Map<String, Collection<String>> tulos = new HashMap<>();
+
+        String[] rivit = commitLog.split("\\R");
+
+        for (String rivi : rivit) {
+
+            rivi = rivi.trim();
+
+            if (rivi.startsWith("Commit ")) {
+
+                String[] osat = rivi.split("\\s+");
+
+                if (osat.length >= 4 && osat[2].equals("by")) {
+
+                    String id = osat[1];
+                    String nimi = osat[3];
+
+                    if (!tulos.containsKey(nimi)) {
+                        tulos.put(nimi, new ArrayList<>());
+                    }
+
+                    tulos.get(nimi).add(id);
+                }
+            }
+        }
+
+        return tulos;
     }
 }
